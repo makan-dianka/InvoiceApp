@@ -1,0 +1,11 @@
+/* footer */
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    
+    color: white;
+    text-align: center;
+    background: rgba(241, 237, 237, 0.777);
+}

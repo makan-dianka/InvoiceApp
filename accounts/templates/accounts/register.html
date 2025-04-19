@@ -1,0 +1,52 @@
+{% extends 'layout/base.html' %} {% load crispy_forms_tags %}
+
+{% load static %}
+
+
+{%  block head %}
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
+{% endblock %}
+
+
+<!-- block title modify title -->
+{% block title %} Page d'inscription {% endblock %}
+
+
+{% block content %}
+    
+    <div class="row content-register">
+
+
+        <div class="col-sm">
+        </div>
+
+
+
+        <div class="col-sm register-widget" style="background: yellow;">
+            <h3>Créer votre compte</h3>
+            <hr>
+            <div class='form-group'>
+                <form method='POST' enctype='multipart/form-data'>
+                    {{ form.as_p }} {% csrf_token %}
+                    <button type="submit" class="btn btn-success register-btn">S'inscrire</button>
+                </form>
+            </div>
+        </div>
+
+
+
+        <div class="col-sm">
+        </div>
+
+
+    </div>
+
+
+    <!-- redirect bouton to login page -->
+    <div class="row justify-content-center">
+        <div class="col-md-4 mt-5">
+            <p>Avez-vous déjà un compte ? <a href="{% url 'accounts:login' %}">Connectez-vous ici</a></p> <br />
+        </div>
+    </div>
+
+{% endblock %}

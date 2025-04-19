@@ -1,0 +1,38 @@
+{% extends "layout/base.html" %} {% load crispy_forms_tags %}
+
+
+
+{% load static %}
+
+
+{%  block head %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row content-login justify-content-center">
+            <div class="col-md-4 login-widget" style="background: yellow;">
+                <h3 style="color:green;">Connexion</h3>
+                <hr>
+                {% for message in messages %}
+                <p style="color: red;">{{ message }}</p>
+                {% endfor %}
+    
+                <form method="POST" action="">
+                    {% csrf_token %}
+                        <input type="text" name="username" placeholder="Votre adresse email" class="form-control"> <br />
+                        <input type="password" name="password" placeholder="Votre mot de passe" class="form-control"> <br />
+                        <input class="btn btn-success login-btn" type="submit" value="Connexion">
+                </form>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-4 mt-5">
+                <p>mot de passe oublié ? <a href="#">rénitialiser</a></p>
+                <p>Vous n'avez pas un compte ? <a href="{% url 'accounts:register' %}">Inscrivez-vous</a></p> <br />
+            </div>
+        </div>
+    </div>
+{% endblock content %}
