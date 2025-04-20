@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.models import User
+from ..models import CustomUser
 from django.contrib.auth.forms import (
                                     UserCreationForm,
                                     PasswordChangeForm,
@@ -13,14 +13,21 @@ class CreateUserForm(UserCreationForm):
     password2 = forms.CharField(max_length=16, widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirmez votre mot de passe'}), label="Confirmer mot de passe")
 
     class Meta:
-        model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        model = CustomUser
+        fields = ['first_name', 'last_name', 'email', 'password1', 'password2']
 
         widgets = {
-            'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Saisir votre nom d\'utilisateur ici'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Saisir votre adresse-email ici'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Saisir votre prénom ici', 'required': 'required', 'type' : 'text'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Saisir votre nom ici', 'required': 'required', 'type' : 'text'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Saisir votre adresse-email ici', 'type': 'email', 'required': 'required'}),
         }
 
         help_texts = {
             'username': None,
+        }
+
+        labels = {
+            'first_name': 'Prénom',
+            'last_name': 'Nom',
+            'email': 'Adresse email',
         }
