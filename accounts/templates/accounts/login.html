@@ -22,8 +22,8 @@
     
                 <form method="POST" action="">
                     {% csrf_token %}
-                        <input type="text" name="username" placeholder="Votre adresse email" class="form-control"> <br />
-                        <input type="password" name="password" placeholder="Votre mot de passe" class="form-control"> <br />
+                        <input type="email" name="email" placeholder="Votre adresse email" class="form-control" required> <br />
+                        <input type="password" name="password" placeholder="Votre mot de passe" class="form-control" required> <br />
                         <input class="btn btn-success login-btn" type="submit" value="Connexion">
                 </form>
             </div>
