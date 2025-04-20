@@ -1,10 +1,10 @@
 from django.shortcuts import render
 
-def register_view(request):
-    pass
 
-def login_view(request):
-    pass
 
-def logout_view(request):
-    pass
+def home(request):
+    return render(request, 'factures/home.html', {})
+
+
+def dashboard(request):
+    return render(request, 'factures/dashboard.html', {})
