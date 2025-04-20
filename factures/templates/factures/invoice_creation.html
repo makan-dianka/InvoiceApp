@@ -1,0 +1,23 @@
+<h2>Créer une facture</h2>
+
+<form method="post">
+  {% csrf_token %}
+  
+  {{ form.as_p }}
+
+  <h3>Lignes de facture</h3>
+  {{ formset.management_form }}
+
+  <table>
+    {% for form in formset %}
+      <tr>
+        <td>{{ form.description }}</td>
+        <td>{{ form.quantity }}</td>
+        <td>{{ form.unit_price }}</td>
+        <td>{% if form.instance.pk %}{{ form.DELETE }} Supprimer{% endif %}</td>
+      </tr>
+    {% endfor %}
+  </table>
+
+  <button type="submit">Enregistrer</button>
+</form>

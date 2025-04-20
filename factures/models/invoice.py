@@ -9,7 +9,7 @@ class Invoice(models.Model):
     number = models.CharField(max_length=50, unique=True)
     issue_date = models.DateField()
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    title = models.TextField(blank=True) # chantier par exemple
+    title = models.CharField(max_length=50, unique=True, null=True) # chantier par exemple
     description = models.TextField(blank=True)
     is_paid = models.BooleanField(default=False)
     rg_percentage = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)  # Ex: 5.00
