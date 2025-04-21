@@ -12,7 +12,7 @@ class InvoiceAdmin(admin.ModelAdmin):
 
 @admin.register(InvoiceItem)
 class InvoiceAdmin(admin.ModelAdmin):
-    list_display = ('description', 'quantity', 'unit_price')
+    list_display = ('description', 'quantity', 'unit_price', 'unit')
 
 
 
