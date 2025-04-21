@@ -2,6 +2,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from factures.forms.invoice_form import InvoiceForm
 from factures.models.invoice import Invoice
+from factures.models.invoice_item import InvoiceItem
 from factures.forms.invoice_item import InvoiceItemForm
 
 
@@ -45,10 +46,12 @@ def add_item_to_invoice(request, invoice_id):
 
 def invoice_detail(request, invoice_id):
     invoice = get_object_or_404(Invoice, id=invoice_id)
-    return render(request, 'factures/invoice_detail.html', {'invoice': invoice})
+    invoice_item = InvoiceItem.objects.get(invoice=invoice)
+    return render(request, 'factures/invoice_detail.html', {'invoice': invoice, 'invoice_item': invoice_item})
 
 
 
 
 def invoices(request):
-    return render(request, "factures/invoice_list.html")
+    invoices = Invoice.objects.all()
+    return render(request, "factures/invoice_list.html", {'invoices': invoices})

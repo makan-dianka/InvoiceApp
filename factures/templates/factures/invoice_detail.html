@@ -1,1 +1,19 @@
-<h1>detail page</h1>
+<h1>detail de la facture {{ invoice.number }}</h1>
+
+client : {{ invoice.customer }} <br />
+title : {{ invoice.title }} <br />
+description: {{ invoice.description }} <br />
+montant: {{ invoice.amount }} <br />
+date de la facturation: {{ invoice.issue_date }} <br />
+facture payé: {{ invoice.is_paid }} <br />
+<a href="#">Éditer la facture</a>
+
+<h2>--------------------------------------------</h2>
+
+<h3>Produire de la facture</h3>
+description: {{ invoice_item.description }} <br />
+unite de mesure: {{ invoice_item.unit }} <br />
+quantité: {{ invoice_item.quantity }} <br />
+prix unitaire: {{ invoice_item.unit_price }} <br />
+
+<a href="#">Éditer les produits</a>

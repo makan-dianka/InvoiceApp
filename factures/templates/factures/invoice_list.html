@@ -1,1 +1,12 @@
 <h1>Liste des facturees</h1>
+
+{% for invoice in invoices %}
+    {{ invoice.number }}
+    {{ invoice.title }}
+    {{ invoice.customer.name }}
+    {{ invoice.issue_date }}
+    {{ invoice.is_paid }}
+    <a href="{% url 'factures:add_item' invoice.id %}">Ajouter produire</a>
+    <a href="{% url 'factures:invoice_detail' invoice.id %}">Voir detail</a>
+    <br />
+{% endfor %}
