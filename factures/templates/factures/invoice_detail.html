@@ -11,9 +11,11 @@ facture payé: {{ invoice.is_paid }} <br />
 <h2>--------------------------------------------</h2>
 
 <h3>Produire de la facture</h3>
+{% for invoice_item in invoice_items %}
 description: {{ invoice_item.description }} <br />
 unite de mesure: {{ invoice_item.unit }} <br />
 quantité: {{ invoice_item.quantity }} <br />
 prix unitaire: {{ invoice_item.unit_price }} <br />
 
-<a href="#">Éditer les produits</a>
+<a href="{% url 'factures:edit_item' invoice_item.id %}">Éditer les produits</a><br />
+{% endfor %}

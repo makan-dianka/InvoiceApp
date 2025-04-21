@@ -11,4 +11,5 @@ urlpatterns = [
     path("invoice/list", invoice.invoices, name="invoices"),
     path('invoice/<int:invoice_id>/add-item/', invoice.add_item_to_invoice, name='add_item'),
     path('invoice/<int:invoice_id>/detail/', invoice.invoice_detail, name='invoice_detail'),
+    path('item/<int:item_id>/edit/', invoice.edit_item, name='edit_item'),
 ]

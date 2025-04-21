@@ -43,11 +43,33 @@ def add_item_to_invoice(request, invoice_id):
 
 
 
+def edit_item(request, item_id):
+    item = get_object_or_404(InvoiceItem, id=item_id)
+    invoice = item.invoice
+
+    if request.method == 'POST':
+        form = InvoiceItemForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('factures:invoice_detail', invoice_id=invoice.id)
+
+    form = InvoiceItemForm(instance=item)
+
+    return render(request, 'factures/edit_item.html', {
+        'form': form,
+        'invoice': invoice,
+        'item': item
+    })
+
+
+
+
+
 
 def invoice_detail(request, invoice_id):
     invoice = get_object_or_404(Invoice, id=invoice_id)
-    invoice_item = InvoiceItem.objects.get(invoice=invoice)
-    return render(request, 'factures/invoice_detail.html', {'invoice': invoice, 'invoice_item': invoice_item})
+    invoice_items = InvoiceItem.objects.filter(invoice=invoice)
+    return render(request, 'factures/invoice_detail.html', {'invoice': invoice, 'invoice_items': invoice_items})
 
 
 
