@@ -17,5 +17,6 @@ unite de mesure: {{ invoice_item.unit }} <br />
 quantité: {{ invoice_item.quantity }} <br />
 prix unitaire: {{ invoice_item.unit_price }} <br />
 
-<a href="{% url 'factures:edit_item' invoice_item.id %}">Éditer les produits</a><br />
+<a href="{% url 'factures:edit_item' invoice_item.id %}" class="btn btn-sm btn-warning">✏️ Modifier</a>
+<a href="{% url 'factures:delete_item' invoice_item.id %}" class="btn btn-sm btn-danger">🗑️ Supprimer</a>
 {% endfor %}

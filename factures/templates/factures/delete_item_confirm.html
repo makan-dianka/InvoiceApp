@@ -1,0 +1,8 @@
+<h2>Supprimer cet article ?</h2>
+<p><strong>{{ item.description }}</strong> – {{ item.quantity }} x {{ item.unit_price }}</p>
+
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">🗑️ Confirmer la suppression</button>
+  <a href="{% url 'factures:invoice_detail' item.invoice.id %}" class="btn btn-secondary">Annuler</a>
+</form>

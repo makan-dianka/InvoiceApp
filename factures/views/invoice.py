@@ -62,7 +62,15 @@ def edit_item(request, item_id):
     })
 
 
+def delete_item(request, item_id):
+    item = get_object_or_404(InvoiceItem, id=item_id)
+    invoice_id = item.invoice.id
 
+    if request.method == 'POST':
+        item.delete()
+        return redirect('factures:invoice_detail', invoice_id=invoice_id)
+
+    return render(request, 'factures/delete_item_confirm.html', {'item': item})
 
 
 
