@@ -1,0 +1,8 @@
+<h2>Supprimer la facture</h2>
+<p>Es-tu sûr de vouloir supprimer la facture n°{{ invoice.number }} ?</p>
+
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">✅ Oui, supprimer</button>
+  <a href="{% url 'factures:invoice_detail' invoice.id %}">❌ Annuler</a>
+</form>

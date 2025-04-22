@@ -13,4 +13,7 @@ urlpatterns = [
     path('invoice/<int:invoice_id>/detail/', invoice.invoice_detail, name='invoice_detail'),
     path('item/<int:item_id>/edit/', invoice.edit_item, name='edit_item'),
     path('item/<int:item_id>/delete/', invoice.delete_item, name='delete_item'),
+
+    path('invoice/<int:invoice_id>/edit/', invoice.edit, name='edit_invoice'),
+    path('invoice/<int:invoice_id>/delete/', invoice.delete, name='delete_invoice'),
 ]

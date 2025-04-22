@@ -4,9 +4,15 @@ from factures.forms.invoice_form import InvoiceForm
 from factures.models.invoice import Invoice
 from factures.models.invoice_item import InvoiceItem
 from factures.forms.invoice_item import InvoiceItemForm
+from django.contrib import messages
 
 
 
+
+
+#-------------------------------------
+# ---->  START section invoice <------
+#-------------------------------------
 
 def create(request):
     if request.method == "POST":
@@ -15,14 +21,94 @@ def create(request):
             invoice = form.save(commit=False)
             invoice.user = request.user
             invoice.save()
-            return redirect("factures:invoices")  # à adapter selon ton URL
+            return redirect("factures:invoices")
     else:
         form = InvoiceForm()
     return render(request, "factures/invoice_creation.html", {"form": form})
 
 
 
-# continue ici demain 21/4/2025
+
+def edit(request, invoice_id):
+    invoice = get_object_or_404(Invoice, id=invoice_id)
+
+    if request.method == 'POST':
+        form = InvoiceForm(request.POST, instance=invoice)
+        if form.is_valid():
+            form.save()
+            return redirect('factures:invoice_detail', invoice_id=invoice.id)
+    else:
+        form = InvoiceForm(instance=invoice)
+
+    return render(request, 'factures/invoice_edit.html', {'form': form, 'invoice': invoice})
+
+
+
+
+
+def delete(request, invoice_id):
+    invoice = get_object_or_404(Invoice, id=invoice_id)
+
+    if request.method == 'POST':
+        invoice.delete()
+        messages.success(request, "Facture supprimée avec succès.")
+        return redirect('factures:invoice_list')
+
+    return render(request, 'factures/invoice_confirm_delete.html', {'invoice': invoice})
+
+
+
+
+def invoice_detail(request, invoice_id):
+    invoice = get_object_or_404(Invoice, id=invoice_id)
+    invoice_items = InvoiceItem.objects.filter(invoice=invoice)
+    return render(request, 'factures/invoice_detail.html', {'invoice': invoice, 'invoice_items': invoice_items})
+
+
+
+
+def invoices(request):
+    invoices = Invoice.objects.all()
+    return render(request, "factures/invoice_list.html", {'invoices': invoices})
+
+#----------------------------------
+# ----> END section invoice <------
+#----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#--------------------------------------
+#----> START section invoice item <----
+#--------------------------------------
+
 def add_item_to_invoice(request, invoice_id):
     invoice = get_object_or_404(Invoice, id=invoice_id)
 
@@ -71,17 +157,3 @@ def delete_item(request, item_id):
         return redirect('factures:invoice_detail', invoice_id=invoice_id)
 
     return render(request, 'factures/delete_item_confirm.html', {'item': item})
-
-
-
-def invoice_detail(request, invoice_id):
-    invoice = get_object_or_404(Invoice, id=invoice_id)
-    invoice_items = InvoiceItem.objects.filter(invoice=invoice)
-    return render(request, 'factures/invoice_detail.html', {'invoice': invoice, 'invoice_items': invoice_items})
-
-
-
-
-def invoices(request):
-    invoices = Invoice.objects.all()
-    return render(request, "factures/invoice_list.html", {'invoices': invoices})

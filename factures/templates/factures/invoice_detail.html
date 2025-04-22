@@ -6,7 +6,9 @@ description: {{ invoice.description }} <br />
 montant: {{ invoice.amount }} <br />
 date de la facturation: {{ invoice.issue_date }} <br />
 facture payé: {{ invoice.is_paid }} <br />
-<a href="#">Éditer la facture</a>
+<a href="{% url 'factures:edit_invoice' invoice.id %}">Éditer la facture</a>
+<a href="{% url 'factures:delete_invoice' invoice.id %}" class="btn btn-sm btn-danger">🗑️ Supprimer</a>
+
 
 <h2>--------------------------------------------</h2>
 
