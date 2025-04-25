@@ -11,7 +11,7 @@ class InvoiceItem(models.Model):
 
     @property
     def total_price(self):
-        return self.quantity * self.unit_price
+        return round(self.quantity * self.unit_price, 2)
 
     def __str__(self):
         return f"{self.description} - {self.total_price}€"

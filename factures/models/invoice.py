@@ -23,16 +23,16 @@ class Invoice(models.Model):
         return sum(item.total_price for item in self.items.all())
     
     def rg_amount(self):
-        return (self.total_ht() * self.rg_percentage) / 100
+        return round((self.total_ht() * self.rg_percentage) / 100, 2)
     
     def tva_amount(self):
-        return (self.total_ht() * self.tva_percentage) / 100
+        return round((self.total_ht() * self.tva_percentage) / 100, 2)
     
     def total_ttc_rg(self):
-        return self.total_ht() - self.rg_amount()
+        return round(self.total_ht() - self.rg_amount(), 2)
 
     def total_ttc_tva(self):
-        return self.total_ht() + self.tva_amount() - self.rg_amount()
+        return round(self.total_ht() + self.tva_amount() - self.rg_amount(), 2)
 
     def __str__(self):
         return f"Invoice {self.number} - {self.customer.name}"
