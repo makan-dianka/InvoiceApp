@@ -1,10 +1,28 @@
-# views.py
 from django.shortcuts import render, redirect, get_object_or_404
+from django.template.loader import get_template
+
+from django.http import HttpResponse
+from django.contrib import messages
+
+
+
+
+from weasyprint import HTML
+
+
+
+
+from factures.forms.invoice_item import InvoiceItemForm
+from factures.models.invoice_item import InvoiceItem
 from factures.forms.invoice_form import InvoiceForm
 from factures.models.invoice import Invoice
-from factures.models.invoice_item import InvoiceItem
-from factures.forms.invoice_item import InvoiceItemForm
-from django.contrib import messages
+
+
+
+
+
+
+
 
 
 
@@ -71,40 +89,56 @@ def invoices(request):
     invoices = Invoice.objects.all()
     return render(request, "factures/invoice_list.html", {'invoices': invoices})
 
-#----------------------------------
+
+
+
 # ----> END section invoice <------
 #----------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#
+#
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+#                                    
 #--------------------------------------
 #----> START section invoice item <----
 #--------------------------------------
@@ -157,3 +191,36 @@ def delete_item(request, item_id):
         return redirect('factures:invoice_detail', invoice_id=invoice_id)
 
     return render(request, 'factures/delete_item_confirm.html', {'item': item})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def generate_invoice_pdf(request, invoice_id):
+    invoice = Invoice.objects.get(id=invoice_id)
+    template = get_template('factures/invoice_pdf.html')
+    html_content = template.render({'invoice': invoice})
+
+    pdf_file = HTML(string=html_content).write_pdf()
+
+    response = HttpResponse(pdf_file, content_type='application/pdf')
+    response['Content-Disposition'] = f'filename="Facture_{invoice.number}.pdf"'
+    return response

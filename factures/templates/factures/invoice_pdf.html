@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Facture {{ invoice.number }}</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .header, .footer { text-align: center; }
+    .invoice-table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      width: 100%;
+      padding: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h2>Facture n° {{ invoice.number }}</h2>
+    <p>Émise le : {{ invoice.issue_date }}</p>
+    <p>Client : {{ invoice.customer.name }}</p>
+  </div>
+
+  <table class="invoice-table">
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Unité</th>
+        <th>Quantité</th>
+        <th>Prix unitaire</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in invoice.items.all %}
+      <tr>
+        <td>{{ item.description }}</td>
+        <td>{{ item.unit }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.unit_price }}</td>
+        <td>{{ item.total_price }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <br>
+  <p>Total HT : {{ invoice.total_ht }} €</p>
+  <p>TVA ({{ invoice.tva_percentage }}%) : {{ invoice.tva_amount }} €</p>
+  <p>Retenue de garantie : {{ invoice.rg_amount }} €</p>
+  <h3>Total TTC : {{ invoice.total_ttc_tva }} €</h3>
+
+  <div class="footer">
+    <p>Merci pour votre confiance.</p>
+  </div>
+
+</body>
+</html>

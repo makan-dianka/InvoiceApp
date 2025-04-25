@@ -16,4 +16,7 @@ urlpatterns = [
 
     path('invoice/<int:invoice_id>/edit/', invoice.edit, name='edit_invoice'),
     path('invoice/<int:invoice_id>/delete/', invoice.delete, name='delete_invoice'),
+
+
+    path('invoice/<int:invoice_id>/pdf/', invoice.generate_invoice_pdf, name='invoice_pdf'),
 ]

@@ -10,6 +10,8 @@ facture payé: {{ invoice.is_paid }} <br />
 <a href="{% url 'factures:delete_invoice' invoice.id %}" class="btn btn-sm btn-danger">🗑️ Supprimer</a>
 
 
+
+
 <h2>--------------------------------------------</h2>
 
 <h3>Produire de la facture</h3>
@@ -22,3 +24,7 @@ prix unitaire: {{ invoice_item.unit_price }} <br />
 <a href="{% url 'factures:edit_item' invoice_item.id %}" class="btn btn-sm btn-warning">✏️ Modifier</a>
 <a href="{% url 'factures:delete_item' invoice_item.id %}" class="btn btn-sm btn-danger">🗑️ Supprimer</a>
 {% endfor %}
+
+
+<br /> <br />
+<a href="{% url 'factures:invoice_pdf' invoice.id %}" target="_blank">📄 Télécharger PDF</a>
