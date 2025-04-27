@@ -199,30 +199,44 @@ def delete_item(request, item_id):
 
     return render(request, 'factures/delete_item_confirm.html', {'item': item})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# ----> END section invoice item <------
+#----------------------------------
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+# ----> PDF Generation <------
+#----------------------------------
+@login_required
 def generate_invoice_pdf(request, invoice_id):
     invoice = Invoice.objects.get(id=invoice_id)
+    if invoice.user != request.user:
+        raise Http404("Cette facture n'existe pas.")
     template = get_template('factures/invoice_pdf.html')
     html_content = template.render({'invoice': invoice})
 
