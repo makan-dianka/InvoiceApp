@@ -1,0 +1,60 @@
+body {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    margin: 20px;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+  }
+  .company-info {
+    width: 45%;
+  }
+  .invoice-info {
+    width: 45%;
+    border: 1px solid black;
+    padding: 10px;
+  }
+  .invoice-info p, .company-info p {
+    margin: 3px 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  th {
+    background-color: gray;
+  }
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+  }
+  .totals {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+  }
+  .left-info {
+    width: 50%;
+    font-size: 11px;
+  }
+  .right-totals {
+    width: 40%;
+    border: 1px solid black;
+    padding: 10px;
+  }
+  .right-totals p {
+    margin: 4px 0;
+    text-align: right;
+  }
+  .total-ttc {
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 10px;
+    border-top: 1px solid black;
+    padding-top: 8px;
+  }
+  

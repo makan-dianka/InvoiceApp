@@ -219,7 +219,7 @@ def generate_invoice_pdf(request, invoice_id):
     template = get_template('factures/invoice_pdf.html')
     html_content = template.render({'invoice': invoice})
 
-    pdf_file = HTML(string=html_content).write_pdf()
+    pdf_file = HTML(string=html_content, base_url=request.build_absolute_uri()).write_pdf()
 
     response = HttpResponse(pdf_file, content_type='application/pdf')
     response['Content-Disposition'] = f'filename="Facture_{invoice.number}.pdf"'

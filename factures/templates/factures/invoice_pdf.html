@@ -3,56 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <title>Facture {{ invoice.number }}</title>
-  <style>
-    body { font-family: Arial, sans-serif; }
-    .header, .footer { text-align: center; }
-    .invoice-table, th, td {
-      border: 1px solid black;
-      border-collapse: collapse;
-      width: 100%;
-      padding: 8px;
-    }
-  </style>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/invoice_pdf.css' %}">
 </head>
 <body>
 
   <div class="header">
-    <h2>Facture n° {{ invoice.number }}</h2>
-    <p>Émise le : {{ invoice.issue_date }}</p>
-    <p>Client : {{ invoice.customer.name }}</p>
+    <div class="company-info">
+      <h3>ETANCH HERAULT 34</h3>
+      <p>19 RUE DU PUECH RADIER</p>
+      <p>34970 LATTES</p>
+      <p><strong>Téléphone :</strong> 07 49 71 03 40</p>
+      <p><strong>Email :</strong> etanch.herault@gmail.com</p>
+      <p><strong>SIRET :</strong> 978 708 980 00013 NAF 4399A</p>
+    </div>
+
+    <div class="invoice-info">
+      <p><strong>Facture N° :</strong> {{ invoice.number }}</p>
+      <p><strong>Chantier :</strong> {{ invoice.site_name }}</p>
+      <p><strong>Date :</strong> {{ invoice.issue_date }}</p>
+      <hr>
+      <p><strong>Client :</strong> {{ invoice.customer.name }}</p>
+      <p><strong>Adresse :</strong> {{ invoice.customer.address }}</p>
+      <p><strong>Téléphone :</strong> {{ invoice.customer.phone|default:"" }}</p>
+      <p><strong>Email :</strong> {{ invoice.customer.email|default:"" }}</p>
+    </div>
   </div>
 
-  <table class="invoice-table">
+  <table>
     <thead>
       <tr>
         <th>Description</th>
-        <th>Unité</th>
+        <th>Unité de mesure</th>
         <th>Quantité</th>
         <th>Prix unitaire</th>
-        <th>Total</th>
+        <th>Prix total</th>
       </tr>
     </thead>
     <tbody>
       {% for item in invoice.items.all %}
       <tr>
-        <td>{{ item.description }}</td>
+        <td style="text-align: left;">{{ item.description }}</td>
         <td>{{ item.unit }}</td>
         <td>{{ item.quantity }}</td>
-        <td>{{ item.unit_price }}</td>
-        <td>{{ item.total_price }}</td>
+        <td>{{ item.unit_price|floatformat:2 }} €</td>
+        <td>{{ item.total_price|floatformat:2 }} €</td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
 
-  <br>
-  <p>Total HT : {{ invoice.total_ht }} €</p>
-  <p>TVA ({{ invoice.tva_percentage }}%) : {{ invoice.tva_amount }} €</p>
-  <p>Retenue de garantie : {{ invoice.rg_amount }} €</p>
-  <h3>Total TTC : {{ invoice.total_ttc_tva }} €</h3>
+  <div class="totals">
+    <div class="left-info">
+      <p><strong>Responsabilité civile & Décennale</strong></p>
+      <p>M-TPE 2025 / POLICE N°PRW2403108</p>
+      <p>MIC INSURANCE</p>
+    </div>
 
-  <div class="footer">
-    <p>Merci pour votre confiance.</p>
+    <div class="right-totals">
+      <p><strong>Total HT :</strong> {{ invoice.total_ht|floatformat:2 }} €</p>
+      <p><strong>TVA {{ invoice.tva_percentage }}% :</strong> {{ invoice.tva_amount|floatformat:2 }} €</p>
+      <p><strong>RG {{ invoice.rg_percentage|default:"0" }}% :</strong> {{ invoice.rg_amount|floatformat:2 }} €</p>
+      <p class="total-ttc"><strong>Montant TTC :</strong> {{ invoice.total_ttc_tva|floatformat:2 }} €</p>
+    </div>
   </div>
 
 </body>
