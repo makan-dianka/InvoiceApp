@@ -1,6 +1,7 @@
-<h2>Modifier la facture</h2>
+<h2>✏️ Modifier la facture {{ invoice.number }}</h2>
+
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
-  <button type="submit">💾 Enregistrer les modifications</button>
+  <button type="submit" style="background-color: green; color: white;">💾 Enregistrer les modifications</button>
 </form>

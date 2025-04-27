@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.template.loader import get_template
 
 from django.http import HttpResponse
 from django.contrib import messages
+from django.http import Http404
 
 
 
@@ -31,7 +33,7 @@ from factures.models.invoice import Invoice
 #-------------------------------------
 # ---->  START section invoice <------
 #-------------------------------------
-
+@login_required
 def create(request):
     if request.method == "POST":
         form = InvoiceForm(request.POST)
@@ -46,10 +48,11 @@ def create(request):
 
 
 
-
+@login_required
 def edit(request, invoice_id):
     invoice = get_object_or_404(Invoice, id=invoice_id)
-
+    if invoice.user != request.user:
+        raise Http404("Cette facture n'existe pas.")
     if request.method == 'POST':
         form = InvoiceForm(request.POST, instance=invoice)
         if form.is_valid():
@@ -63,10 +66,11 @@ def edit(request, invoice_id):
 
 
 
-
+@login_required
 def delete(request, invoice_id):
     invoice = get_object_or_404(Invoice, id=invoice_id)
-
+    if invoice.user != request.user:
+        raise Http404("Cette facture n'existe pas.")
     if request.method == 'POST':
         invoice.delete()
         messages.success(request, "Facture supprimée avec succès.")
@@ -76,17 +80,20 @@ def delete(request, invoice_id):
 
 
 
-
+@login_required
 def invoice_detail(request, invoice_id):
     invoice = get_object_or_404(Invoice, id=invoice_id)
+    if invoice.user != request.user:
+        raise Http404("Cette facture n'existe pas.")
     invoice_items = InvoiceItem.objects.filter(invoice=invoice)
     return render(request, 'factures/invoice_detail.html', {'invoice': invoice, 'invoice_items': invoice_items})
 
 
 
 
+@login_required
 def invoices(request):
-    invoices = Invoice.objects.all()
+    invoices = Invoice.objects.filter(user=request.user)
     return render(request, "factures/invoice_list.html", {'invoices': invoices})
 
 

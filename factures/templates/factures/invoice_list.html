@@ -9,4 +9,6 @@
     <a href="{% url 'factures:add_item' invoice.id %}">Ajouter produire</a>
     <a href="{% url 'factures:invoice_detail' invoice.id %}">Voir detail</a>
     <br />
+{% empty %}
+    <p>Aucune facture trouvée.</p>
 {% endfor %}
