@@ -149,10 +149,11 @@ def invoices(request):
 #--------------------------------------
 #----> START section invoice item <----
 #--------------------------------------
-
+@login_required
 def add_item_to_invoice(request, invoice_id):
     invoice = get_object_or_404(Invoice, id=invoice_id)
-
+    if invoice.user != request.user:
+        raise Http404("Facture non trouvée.")
     if request.method == 'POST':
         form = InvoiceItemForm(request.POST)
         if form.is_valid():
@@ -169,10 +170,12 @@ def add_item_to_invoice(request, invoice_id):
     })
 
 
-
+@login_required
 def edit_item(request, item_id):
     item = get_object_or_404(InvoiceItem, id=item_id)
     invoice = item.invoice
+    if invoice.user != request.user:
+        raise Http404("Article non trouvé.")
 
     if request.method == 'POST':
         form = InvoiceItemForm(request.POST, instance=item)
@@ -189,13 +192,17 @@ def edit_item(request, item_id):
     })
 
 
+@login_required
 def delete_item(request, item_id):
     item = get_object_or_404(InvoiceItem, id=item_id)
-    invoice_id = item.invoice.id
+    invoice = item.invoice
+
+    if invoice.user != request.user:
+        raise Http404("Article non trouvé.")
 
     if request.method == 'POST':
         item.delete()
-        return redirect('factures:invoice_detail', invoice_id=invoice_id)
+        return redirect('factures:invoice_detail', invoice_id=invoice.id)
 
     return render(request, 'factures/delete_item_confirm.html', {'item': item})
 

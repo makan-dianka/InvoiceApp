@@ -1,8 +1,9 @@
 <h2>Modifier l'article</h2>
+
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
-  <button type="submit" class="btn btn-success">💾 Enregistrer</button>
+  <button type="submit" class="btn btn-success">💾 Enregistrer les modifications</button>
 </form>
 
 <p><a href="{% url 'factures:invoice_detail' invoice.id %}">← Retour à la facture</a></p>
