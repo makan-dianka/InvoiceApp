@@ -36,14 +36,14 @@ from factures.models.invoice import Invoice
 @login_required
 def create(request):
     if request.method == "POST":
-        form = InvoiceForm(request.POST)
+        form = InvoiceForm(request.POST, user=request.user)
         if form.is_valid():
             invoice = form.save(commit=False)
             invoice.user = request.user
             invoice.save()
             return redirect("factures:invoices")
     else:
-        form = InvoiceForm()
+        form = InvoiceForm(user=request.user)
     return render(request, "factures/invoice_creation.html", {"form": form})
 
 

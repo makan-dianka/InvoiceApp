@@ -1,5 +1,6 @@
 from django import forms
 from factures.models.invoice import Invoice
+from factures.models.customer import Customer
 
 class InvoiceForm(forms.ModelForm):
     class Meta:
@@ -45,3 +46,14 @@ class InvoiceForm(forms.ModelForm):
             'description': "Description",
             'is_paid': "Payée ?",
         }
+
+
+
+
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+
+        if user is not None:
+            self.fields['customer'].queryset = Customer.objects.filter(user=user)
