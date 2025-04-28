@@ -4,12 +4,9 @@ from factures.models.invoice import Invoice
 class InvoiceForm(forms.ModelForm):
     class Meta:
         model = Invoice
-        fields = ['user', 'customer', 'title', 'number', 'issue_date', 'amount', 'description', 'is_paid']
+        fields = ['customer', 'title', 'number', 'issue_date', 'amount', 'description', 'is_paid']
         
         widgets = {
-            'user': forms.Select(attrs={
-                'class': 'form-select',  # Bootstrap style pour les <select>
-            }),
             'customer': forms.Select(attrs={
                 'class': 'form-select',  # Bootstrap style pour les <select>
             }),
@@ -40,7 +37,6 @@ class InvoiceForm(forms.ModelForm):
         }
 
         labels = {
-            'user': "Utilisateur",
             'customer': "Client",
             'title': "Titre",
             'number': "Numéro de facture",
