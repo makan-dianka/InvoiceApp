@@ -20,4 +20,5 @@ urlpatterns = [
 
     path('invoice/<int:invoice_id>/pdf/', invoice.generate_invoice_pdf, name='invoice_pdf'),
     path('customer/creation/', invoice.create_customer, name='create_customer'),
+    path('customer/list/', invoice.customer_list, name='customer_list'),
 ]

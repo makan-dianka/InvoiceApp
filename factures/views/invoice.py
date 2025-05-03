@@ -18,7 +18,10 @@ from factures.forms.invoice_item import InvoiceItemForm
 from factures.forms.customer_form import CustomerForm
 from factures.models.invoice_item import InvoiceItem
 from factures.forms.invoice_form import InvoiceForm
+
+
 from factures.models.invoice import Invoice
+from factures.models.customer import Customer
 
 
 
@@ -46,7 +49,10 @@ def create_customer(request):
 
 
 
-
+@login_required
+def customer_list(request):
+    customers = Customer.objects.filter(user=request.user)
+    return render(request, 'factures/customer_list.html', {'customers': customers})
 
 
 
