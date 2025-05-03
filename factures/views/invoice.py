@@ -15,6 +15,7 @@ from weasyprint import HTML
 
 
 from factures.forms.invoice_item import InvoiceItemForm
+from factures.forms.customer_form import CustomerForm
 from factures.models.invoice_item import InvoiceItem
 from factures.forms.invoice_form import InvoiceForm
 from factures.models.invoice import Invoice
@@ -22,6 +23,26 @@ from factures.models.invoice import Invoice
 
 
 
+
+
+
+
+#--------------------#
+# Customer creation  #
+#--------------------#
+@login_required
+def create_customer(request):
+    if request.method == "POST":
+        form = CustomerForm(request.POST)
+        if form.is_valid():
+            customer = form.save(commit=False)
+            customer.user = request.user
+            customer.save()
+            return redirect('factures:invoices')
+    else:
+        form = CustomerForm()
+
+    return render(request, 'factures/customer_creation.html', {'form': form})
 
 
 

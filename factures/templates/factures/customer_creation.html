@@ -1,0 +1,9 @@
+<h2>Créer un client</h2>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" style="background-color: green; color: white;">✅ Créer le client</button>
+</form>
+
+<a href="{% url 'factures:invoices' %}">← Retour</a>
