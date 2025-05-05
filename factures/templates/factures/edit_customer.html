@@ -1,0 +1,9 @@
+<h2>✏️ Modifier le client : {{ customer.name }}</h2>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">💾 Enregistrer</button>
+</form>
+
+<a href="{% url 'factures:customer_list' %}">← Retour à la liste des clients</a>

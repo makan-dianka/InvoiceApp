@@ -50,6 +50,23 @@ def create_customer(request):
 
 
 @login_required
+def edit_customer(request, customer_id):
+    customer = get_object_or_404(Customer, id=customer_id, user=request.user)
+
+    if request.method == 'POST':
+        form = CustomerForm(request.POST, instance=customer)
+        if form.is_valid():
+            form.save()
+            return redirect('factures:customer_list')
+    else:
+        form = CustomerForm(instance=customer)
+
+    return render(request, 'factures/edit_customer.html', {'form': form, 'customer': customer})
+
+
+
+
+@login_required
 def customer_list(request):
     customers = Customer.objects.filter(user=request.user)
     return render(request, 'factures/customer_list.html', {'customers': customers})

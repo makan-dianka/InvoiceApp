@@ -2,5 +2,6 @@
 <ul>
   {% for customer in customers %}
     <li>{{ customer.name }} – {{ customer.email }}</li>
+    <a href="{% url 'factures:edit_customer' customer.id %}" class="btn btn-sm btn-warning">✏️ Modifier</a>
   {% endfor %}
 </ul>
