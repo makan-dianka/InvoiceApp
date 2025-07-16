@@ -1,0 +1,11 @@
+.dashboard .menu {
+    margin-top: 150px;
+    background-color: green;
+    color: white;
+    border-radius: 15px;
+    padding: 15px;
+}
+
+.dashboard a {
+    text-decoration: none;
+}
