@@ -1,11 +1,14 @@
-.dashboard .menu {
+.main-top {
     margin-top: 150px;
+}
+
+.main-top .menu {
     background-color: green;
     color: white;
     border-radius: 15px;
     padding: 15px;
 }
 
-.dashboard a {
+.main-top a {
     text-decoration: none;
 }
