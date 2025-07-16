@@ -17,12 +17,12 @@ class Invoice(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
-        if not self.pk:
-            super().save(*args, **kwargs)
-
         if not self.number:
+            super().save(*args, **kwargs)
             self.number = f"FACT-{self.id:04d}"
-            super().save(update_fields=["number"])
+            super().save(update_fields=['number'])
+        else:
+            super().save(*args, **kwargs)
 
 
     def total_ht(self):
