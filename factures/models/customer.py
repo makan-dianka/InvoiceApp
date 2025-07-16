@@ -3,7 +3,7 @@ from django.db import models
 from django.conf import settings
 
 class Customer(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='customers')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     email = models.EmailField()
     phone = models.CharField(max_length=150)
