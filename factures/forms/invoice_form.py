@@ -9,7 +9,7 @@ class InvoiceForm(forms.ModelForm):
 
         widgets = {
             'customer': forms.Select(attrs={
-                'class': 'form-select',  # Bootstrap style pour les <select>
+                'class': 'form-select', 'id' : 'customer-field',  # Bootstrap style pour les <select>
             }),
             'chantier': forms.TextInput(attrs={'class': 'form-control'}),
             'issue_date': forms.DateInput(attrs={
