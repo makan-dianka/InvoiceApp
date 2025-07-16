@@ -5,7 +5,7 @@ from accounts.models import CustomUser
 
 @admin.register(Invoice)
 class InvoiceAdmin(admin.ModelAdmin):
-    list_display = ('number', 'user', 'amount', 'is_paid', 'issue_date')
+    list_display = ('number', 'user', 'is_paid', 'issue_date')
     search_fields = ('number', 'user__email')
     list_filter = ('is_paid', 'issue_date')
 
