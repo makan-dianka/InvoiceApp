@@ -4,10 +4,11 @@ from factures.models.invoice_item import InvoiceItem
 class InvoiceItemForm(forms.ModelForm):
     class Meta:
         model = InvoiceItem
-        fields = ['invoice', 'unit', 'quantity', 'unit_price', 'description']
+        fields = ['unit', 'quantity', 'unit_price', 'description']
         widgets = {
-            'invoice': forms.Select(attrs={'class': 'form-select',}),
-            'unit': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'unité de mesure'}),
+            'unit': forms.Select(attrs={
+                'class': 'form-select',  # Bootstrap style pour les <select>
+            }),
             'quantity': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantité'}),
             'unit_price': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Prix unitaire'}),
             'description': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}),
