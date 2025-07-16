@@ -1,31 +1,62 @@
-<h1>Détail de la facture {{ invoice.number }}</h1>
+{% extends "layout/base.html" %}
 
-<p><strong>Client :</strong> {{ invoice.customer.name }}</p>
-<p><strong>Titre :</strong> {{ invoice.title }}</p>
-<p><strong>Description :</strong> {{ invoice.description }}</p>
-<p><strong>Montant :</strong> {{ invoice.amount }} €</p>
-<p><strong>Date de facturation :</strong> {{ invoice.issue_date }}</p>
-<p><strong>Facture payée :</strong> {{ invoice.is_paid|yesno:"Oui,Non" }}</p>
+{% load static %}
 
-<a href="{% url 'factures:edit_invoice' invoice.id %}">✏️ Éditer la facture</a>
-<a href="{% url 'factures:delete_invoice' invoice.id %}" class="btn btn-sm btn-danger">🗑️ Supprimer</a>
 
-<hr>
+{%  block head %}
+{% endblock %}
 
-<h3>Produits de la facture</h3>
-{% for invoice_item in invoice_items %}
-    <p>
-      <strong>Description :</strong> {{ invoice_item.description }}<br>
-      <strong>Unité de mesure :</strong> {{ invoice_item.unit }}<br>
-      <strong>Quantité :</strong> {{ invoice_item.quantity }}<br>
-      <strong>Prix unitaire :</strong> {{ invoice_item.unit_price }} €
-    </p>
-    <a href="{% url 'factures:edit_item' invoice_item.id %}" class="btn btn-sm btn-warning">✏️ Modifier</a>
-    <a href="{% url 'factures:delete_item' invoice_item.id %}" class="btn btn-sm btn-danger">🗑️ Supprimer</a>
-    <hr>
-{% empty %}
-    <p>Aucun produit lié à cette facture.</p>
-{% endfor %}
 
-<br><br>
-<a href="{% url 'factures:invoice_pdf' invoice.id %}" target="_blank">📄 Télécharger le PDF</a>
+{% block content %}
+
+    <div class="container">
+        <div class="row justify-content-center main-top">
+            <div class="col-md-8">
+                <button type="button" class="btn btn-success mb-5" onclick=redirectTo()>Ajouter un produit</button>
+                <table class="table caption-top border-dark">
+                    <caption>Facture n° {{ invoice.number  }} 
+                      <a href="{% url 'factures:edit_invoice' invoice.id %}"> ✏️ Éditer</a>
+                    </caption>
+                    <thead class="tbl-bg text-center">
+                        <tr>
+                            <th scope="col">Description</th>
+                            <th scope="col">Unité</th>
+                            <th scope="col">Qté</th>
+                            <th scope="col">P.U</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for invoice_item in invoice_items %}
+                            <tr class="text-center">
+                                <td>
+                                    <a href="{% url 'factures:edit_item' invoice_item.id %}">
+                                        {{ invoice_item.description }}
+                                    </a>
+                                </td>
+                                <td>{{ invoice_item.unit }}</td>
+                                <td>{{ invoice_item.quantity }}</td>
+                                <td>{{ invoice_item.unit_price }}€</td>
+                                
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <br><br>
+                {% if  invoice_items %}
+                  <a href="{% url 'factures:invoice_pdf' invoice.id %}" target="_blank">📄 Télécharger le PDF</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block custom_javascrpt %}
+    <script>
+        function redirectTo() {
+            window.location.href="{% url 'factures:add_item' invoice.id %}";
+        }
+    </script>
+{% endblock %}

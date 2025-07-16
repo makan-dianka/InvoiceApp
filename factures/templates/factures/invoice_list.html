@@ -1,14 +1,57 @@
-<h1>Liste des facturees</h1>
+{% extends "layout/base.html" %}
 
-{% for invoice in invoices %}
-    {{ invoice.number }}
-    {{ invoice.title }}
-    {{ invoice.customer.name }}
-    {{ invoice.issue_date }}
-    {{ invoice.is_paid }}
-    <a href="{% url 'factures:add_item' invoice.id %}">Ajouter produire</a>
-    <a href="{% url 'factures:invoice_detail' invoice.id %}">Voir detail</a>
-    <br />
-{% empty %}
-    <p>Aucune facture trouvée.</p>
-{% endfor %}
+{% load static %}
+
+
+{%  block head %}
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center main-top">
+            <div class="col-md-8">
+                <button type="button" class="btn btn-success mb-5" onclick=redirectTo()>Créer une facture</button>
+                <table class="table caption-top border-dark">
+                    <caption>Liste des factures</caption>
+                    <thead class="tbl-bg text-center">
+                        <tr>
+                            <th scope="col">Numéro</th>
+                            <th scope="col">Client</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Chantier</th>
+                            <th scope="col">TTC</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for invoice in invoices %}
+                            <tr class="text-center">
+                                <td>
+                                    <a href="{% url 'factures:invoice_detail' invoice.id %}">
+                                        N° {{ invoice.number }}
+                                    </a>
+                                </td>
+                                <td>{{ invoice.customer.name }}</td>
+                                <td>{{ invoice.issue_date }}</td>
+                                <td>{{ invoice.title }}</td>
+                                <td>{{ invoice.total_ttc_tva }}€</td>
+                                
+                            </tr>
+                        {% empty %}
+                            <p>Aucune facture trouvée.</p>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block custom_javascrpt %}
+    <script>
+        function redirectTo() {
+            window.location.href="{% url 'factures:create' %}";
+        }
+    </script>
+{% endblock %}

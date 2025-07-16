@@ -1,9 +1,26 @@
-<h2>Créer un client</h2>
+{% extends "layout/base.html" %}
 
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" style="background-color: green; color: white;">✅ Créer le client</button>
-</form>
+{% load static %}
 
-<a href="{% url 'factures:invoices' %}">← Retour</a>
+
+{%  block head %}
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center main-top">
+            <div class="col-md-8">
+                <h4>Ajouter un nouveau client</h4>
+                <hr />
+                <form method="post">
+                  {% csrf_token %}
+                  {{ form.as_p }}
+                  <button type="submit" class="btn btn-success">Ajouter un nouveau client</button>
+                </form>
+                <br /> <br />
+                <a href="{% url 'factures:invoices' %}">← Retour</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
