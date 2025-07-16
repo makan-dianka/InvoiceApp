@@ -15,7 +15,7 @@ class InvoiceForm(forms.ModelForm):
             'issue_date': forms.DateInput(attrs={
                 'class': 'form-control',
                 'type': 'date',
-            }),
+            }, format='%Y-%m-%d'),
 
             'is_paid': forms.CheckboxInput(attrs={
                 'class': 'form-check-input'
