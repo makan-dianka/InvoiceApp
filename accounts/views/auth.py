@@ -9,6 +9,9 @@ from django.contrib import messages
 
 
 def register_view(request):
+    if request.user.is_authenticated:
+        return redirect("factures:dashboard")
+
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
@@ -22,6 +25,9 @@ def register_view(request):
 
 
 def login_view(request):
+    if request.user.is_authenticated:
+        return redirect("factures:dashboard")
+
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
