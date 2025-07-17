@@ -1,7 +1,31 @@
-<h2>Mes clients</h2>
-<ul>
-  {% for customer in customers %}
-    <li>{{ customer.name }} – {{ customer.email }}</li>
-    <a href="{% url 'factures:edit_customer' customer.id %}" class="btn btn-sm btn-warning">✏️ Modifier</a>
-  {% endfor %}
-</ul>
+{% extends "layout/base.html" %}
+
+{% load static %}
+
+
+{%  block head %}
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center main-top">
+            <div class="col-md-8">
+                <h1 class="mb-5 text-success">Mes clients</h1>
+
+                {% for customer in customers %}
+                  <div>
+                    <strong>Nom:</strong> {{ customer.name }} <br>
+                    <strong>Email: </strong> {{ customer.email }} <br>
+                    <strong>Phone: </strong> {{ customer.phone }} <br>
+                    <strong>Adresse: </strong> {{ customer.address }} <br>
+                    <a href="{% url 'factures:edit_customer' customer.id %}">✏️ Modifier</a> 
+                  </div> <hr />
+                {% endfor %}
+                <br><br>
+                <p><a href="{% url 'factures:invoices' %}">← Retour à la facture</a></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
