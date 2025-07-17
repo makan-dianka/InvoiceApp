@@ -1,5 +1,5 @@
 from django import forms
-from ..models import CustomUser
+from ..models import CustomUser, Company
 from django.contrib.auth.forms import (
                                     UserCreationForm,
                                     PasswordChangeForm,
@@ -30,4 +30,30 @@ class CreateUserForm(UserCreationForm):
             'first_name': 'Prénom',
             'last_name': 'Nom',
             'email': 'Adresse email',
+        }
+
+
+
+
+
+class CompanyForm(forms.ModelForm):
+    class Meta:
+        model = Company
+        fields = ['name', 'email', 'phone', 'address', 'siret', 'naf']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': "Nom de l'entreprise"}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': "Email de l'entreprise"}),
+            'phone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': "Téléphone de l'entreprise"}),
+            'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': "L'adresse de l'entreprise"}),
+            'siret': forms.TextInput(attrs={'class': 'form-control', 'placeholder': "Numéro de siret"}),
+            'naf': forms.TextInput(attrs={'class': 'form-control', 'placeholder': "code NAF"}),
+        }
+
+        labels = {
+            'name': "Nom",
+            'email': "Email",
+            'phone': "Téléphone",
+            'company': "Entreprise",
+            'address': "Adresse",
+            'naf': "Code NAF",
         }
