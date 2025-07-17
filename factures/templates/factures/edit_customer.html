@@ -1,9 +1,26 @@
-<h2>✏️ Modifier le client : {{ customer.name }}</h2>
+{% extends "layout/base.html" %}
 
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" class="btn btn-primary">💾 Enregistrer</button>
-</form>
+{% load static %}
 
-<a href="{% url 'factures:customer_list' %}">← Retour à la liste des clients</a>
+
+{%  block head %}
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center main-top">
+            <div class="col-md-8">
+                <h4>✏️ Modifier le client : {{ customer.name }}</h4>
+                <hr />
+                <form method="post">
+                  {% csrf_token %}
+                  {{ form.as_p }}
+                  <button type="submit" class="btn btn-success">Enregistrer</button>
+                </form>
+                <br><br>
+                <p><a href="{% url 'factures:customer_list' %}">← Retour à la liste des clients</a></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
