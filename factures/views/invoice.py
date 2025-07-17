@@ -22,6 +22,7 @@ from factures.forms.invoice_form import InvoiceForm
 
 from factures.models.invoice import Invoice
 from factures.models.customer import Customer
+from accounts.models import Company
 
 
 
@@ -288,8 +289,9 @@ def generate_invoice_pdf(request, invoice_id):
     invoice = Invoice.objects.get(id=invoice_id)
     if invoice.user != request.user:
         raise Http404("Cette facture n'existe pas.")
+    user_company = Company.objects.get(owner=request.user)
     template = get_template('factures/invoice_pdf.html')
-    html_content = template.render({'invoice': invoice})
+    html_content = template.render({'invoice': invoice, 'company': user_company})
 
     pdf_file = HTML(string=html_content, base_url=request.build_absolute_uri()).write_pdf()
 

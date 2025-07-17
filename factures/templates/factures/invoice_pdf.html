@@ -10,12 +10,11 @@
 
   <div class="header">
     <div class="company-info">
-      <h3>ETANCH HERAULT 34</h3>
-      <p>19 RUE DU PUECH RADIER</p>
-      <p>34970 LATTES</p>
-      <p><strong>Téléphone :</strong> 07 49 71 03 40</p>
-      <p><strong>Email :</strong> etanch.herault@gmail.com</p>
-      <p><strong>SIRET :</strong> 978 708 980 00013 NAF 4399A</p>
+      <h2>{{ company.name }}</h2>
+      <p>{{ company.address }}</p>
+      <p><strong>Téléphone :</strong> {{ company.phone }}</p>
+      <p><strong>Email :</strong> {{ company.email }}</p>
+      <p><strong>SIRET :</strong> {{ company.siret }} NAF {{ company.naf }}</p>
     </div>
 
     <div class="invoice-info">
