@@ -6,7 +6,7 @@ from django.conf import settings
 class Invoice(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='customers')
-    number = models.CharField(max_length=50, unique=True, blank=True)
+    number = models.CharField(max_length=50, blank=True)
     issue_date = models.DateField()
     chantier = models.CharField(max_length=250, null=True) # chantier par exemple
     is_paid = models.BooleanField(default=False)
@@ -16,13 +16,8 @@ class Invoice(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def save(self, *args, **kwargs):
-        if not self.number:
-            super().save(*args, **kwargs)
-            self.number = f"FACT-{self.id:04d}"
-            super().save(update_fields=['number'])
-        else:
-            super().save(*args, **kwargs)
+    class Meta:
+        unique_together = ('user', 'number')
 
 
     def total_ht(self):
