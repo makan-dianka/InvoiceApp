@@ -34,3 +34,17 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+
+
+class Company(models.Model):
+    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='company')
+    name = models.CharField(max_length=100)
+    address = models.CharField(max_length=250)
+    email = models.EmailField(unique=True)
+    phone = models.CharField(max_length=100)
+    siret = models.CharField(max_length=50)
+    naf = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
