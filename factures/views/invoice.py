@@ -23,6 +23,7 @@ from factures.forms.invoice_form import InvoiceForm
 from factures.models.invoice import Invoice
 from factures.models.customer import Customer
 from accounts.models import Company
+from factures import utils
 
 
 
@@ -83,8 +84,10 @@ def create(request):
     if request.method == "POST":
         form = InvoiceForm(request.POST, user=request.user)
         if form.is_valid():
+            invoice_number = utils.generate_invoice_number(request.user)
             invoice = form.save(commit=False)
             invoice.user = request.user
+            invoice.number = invoice_number
             invoice.save()
             return redirect("factures:invoices")
     else:
