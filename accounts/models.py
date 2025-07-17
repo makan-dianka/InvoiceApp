@@ -38,7 +38,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 
 class Company(models.Model):
-    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='company')
+    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='company', blank=True)
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=250)
     email = models.EmailField(unique=True)
