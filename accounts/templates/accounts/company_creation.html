@@ -1,0 +1,25 @@
+{% extends "layout/base.html" %}
+
+{% load static %}
+
+
+{%  block head %}
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center main-top">
+            <div class="col-md-8">
+                <h4>Info sur votre entreprise</h4>
+                <hr />
+                <form method="post">
+                  {% csrf_token %}
+                  {{ form.as_p }}
+                  <button type="submit" class="btn btn-success">Sauvegarder</button>
+                </form>
+                <br /> <br />
+            </div>
+        </div>
+    </div>
+{% endblock %}
