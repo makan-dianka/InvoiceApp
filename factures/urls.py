@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import auth, invoice
+from .views import auth, invoice, quote
 
 
 app_name="factures"
@@ -23,4 +23,14 @@ urlpatterns = [
     path('customer/list/', invoice.customer_list, name='customer_list'),
 
     path('customer/<int:customer_id>/edit/', invoice.edit_customer, name='edit_customer'),
+
+
+    path("quote/list/", quote.quote, name="quote_list"),
+    path('quote/<int:quote_id>/detail/', quote.quote_detail, name='quote_detail'),
+    path("quote/creation/", quote.create, name="quote_create"),
+    path('quote/<int:quote_id>/edit/', quote.quote_edit, name='edit_quote'),
+    path('quote/<int:quote_id>/add-item/', quote.add_item_to_quote, name='add_quote_item'),
+    path('quote/item/<int:item_id>/edit/', quote.quote_edit_item, name='quote_edit_item'),
+
+    path('quote/<int:quote_id>/pdf/', quote.generate_quote_pdf, name='quote_pdf'),
 ]
