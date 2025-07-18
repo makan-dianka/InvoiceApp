@@ -3,6 +3,13 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from factures.views import errors
+
+handler403 = errors.handler403
+handler404 = errors.handler404
+handler405 = errors.handler405
+handler500 = errors.handler500
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
