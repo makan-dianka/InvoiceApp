@@ -10,7 +10,7 @@ dotenv.load_dotenv(BASE_DIR / '.env')
 
 SECRET_KEY = os.environ['SECRET_KEY']
 
-DEBUG = bool(int(os.getenv(['DEBUG'], 0)))
+DEBUG = bool(int(os.getenv('DEBUG', 0)))
 
 ALLOWED_HOSTS = []
 if DEBUG is False:
