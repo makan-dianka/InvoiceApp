@@ -14,7 +14,7 @@
             <div class="col-md-8">
                 <button type="button" class="btn btn-success mb-5" onclick=redirectTo()>Ajouter un produit</button>
                 <table class="table caption-top border-dark">
-                    <caption>Facture n° {{ invoice.number  }} 
+                    <caption>{{ invoice.number  }} 
                       <a href="{% url 'factures:edit_invoice' invoice.id %}"> ✏️ Éditer</a>
                     </caption>
                     <thead class="tbl-bg text-center">

@@ -30,7 +30,7 @@
                             <tr class="text-center">
                                 <td>
                                     <a href="{% url 'factures:invoice_detail' invoice.id %}">
-                                        N° {{ invoice.number }}
+                                        {{ invoice.number }}
                                     </a>
                                 </td>
                                 <td>{{ invoice.customer.name }}</td>
