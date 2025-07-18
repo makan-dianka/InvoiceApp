@@ -32,7 +32,7 @@ class CustomUserAdmin(admin.ModelAdmin):
 
 @admin.register(Quote)
 class QuoteAdmin(admin.ModelAdmin):
-    list_display = ('number', 'user', 'status', 'issue_date')
+    list_display = ('number', 'user', 'status', 'issue_date', 'validity')
     search_fields = ('customer',)
 
 
