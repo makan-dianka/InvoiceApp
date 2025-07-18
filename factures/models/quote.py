@@ -16,6 +16,7 @@ class Quote(models.Model):
     issue_date = models.DateField()
     chantier = models.CharField(max_length=250, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    validity = models.IntegerField(default=15)
     rg_percentage = models.DecimalField(max_digits=5, decimal_places=2, default=20)  # Ex: 5.00
     tva_percentage = models.DecimalField(max_digits=5, decimal_places=2, default=20)  # Ex: 5.00
 
