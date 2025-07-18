@@ -2,6 +2,8 @@
 .env
 db.sqlite3
 
+staticfiles/
+
 accounts/__pycache__
 accounts/forms/__pycache__
 accounts/migrations/__pycache__
