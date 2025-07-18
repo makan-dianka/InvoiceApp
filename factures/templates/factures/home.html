@@ -6,12 +6,18 @@
 {%  block head %}
 {% endblock %}
 
+<title>
+    {% block title %}
+        Devis & Factures BTP - outil simple, rapide sans prise de tête
+    {% endblock %}
+</title>
+
 
 {% block content %}
     <div class="container">
         <div class="row justify-content-center main-top">
             <div class="col-md-8">
-                <h1 class="dash-title">Gérez vos devis et factures BTP facilement en ligne.</h1>
+                <h2 class="dash-title">Gérez vos devis et factures BTP facilement en ligne.</h2>
 
                 <section class="welcome dashboard">
                     <p>
@@ -22,7 +28,6 @@
 
                 <section class="tool-btp dashboard">
                     <h3>Un outil pensé pour le BTP</h3>
-                    <p>Gagner des chantiers et être payé à temps passe par des documents clairs et professionnels. Avec <strong>FacturaPro</strong>, vous pouvez :</p>
                     <ul>
                         <li>Créer des devis et Factures BTP détaillés en quelques minutes.</li>
                         <li>Éditer des factures conformes et personnalisées.</li>
@@ -32,8 +37,7 @@
 
                 
                 <section class="free dashboard">
-                    <h3>Simple, rapide, efficace et gratuit</h3>
-                    <p>Accessible en ligne, depuis le bureau ou le chantier, notre logiciel vous permet de rester concentré sur l'essentiel : votre métier.</p>
+                    <h3>Simple, rapide, efficace</h3>
                     <ul>
                         <li>Pas besoin de formation, tout est intuitif.</li>
                         <li>Compatible sur ordinateur, tablette et smartphone.</li>
@@ -41,7 +45,24 @@
                     </ul>
                 </section>
 
-                <button type="button" class="btn btn-success btn-lg" onclick=redirectTo()>Créer votre facture gratuitement</button>
+                <section class="why-us">
+                    <h2>Pourquoi choisir notre solution ?</h2>
+                    <div class="row mt-4">
+                    <div class="col-md-4">
+                        <h4>📄 Rapide</h4>
+                        <p>Créez vos devis & factures en 2 minutes.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h4>🛠️ Spécialisé</h4>
+                        <p>Conçu pour artisans & PME du BTP.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h4>✅ Conforme</h4>
+                        <p>Vos documents sont réglementaires et sécurisés.</p>
+                    </div>
+    
+                    <button type="button" class="btn btn-success btn-lg" onclick=redirectTo()>Créer mon compte</button>
+                </section>
                 <br /> <br /> <br /> <br /> <br /> <br />
             </div>
         </div>
@@ -52,7 +73,7 @@
 {% block custom_javascrpt %}
     <script>
         function redirectTo() {
-            window.location.href="{% url 'factures:invoices' %}";
+            window.location.href="{% url 'accounts:register' %}";
         }
     </script>
 {% endblock %}
