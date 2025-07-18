@@ -1,0 +1,190 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>DEVIS {{ quote.number }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <!-- style -->
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        margin: 20px;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+      }
+      .company-info {
+        width: 45%;
+        background-color: whitesmoke;
+        padding: 10px;
+      }
+      .invoice-info > div{
+        width: 300px;
+        border: 1px dashed black;
+        padding: 8px;
+        background-color: #af601a;
+        color: #ffffff;
+      }
+
+      .invoice-info p, .company-info p {
+        margin: 3px 0;
+      }
+
+      .meta-info {
+        float: right;
+        padding: 5px;
+        width: 300px;
+      }
+
+      .totals {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+      }
+
+      .left-info {
+        width: 50%;
+        font-size: 11px;
+      }
+
+
+      .right-totals {
+        width: 40%;
+        border: 1px solid black;
+        padding: 10px;
+      }
+
+
+      .right-totals p {
+        margin: 4px 0;
+        text-align: right;
+      }
+
+      .total-ttc {
+        font-weight: bold;
+        font-size: 14px;
+        margin-top: 10px;
+        border-top: 1px solid black;
+        padding-top: 8px;
+        background-color: #af601a;
+        color: white;
+        padding: 10px;
+      }
+
+
+      /* Footer */
+      footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2cm;
+        text-align: center;
+        font-size: 11px;
+        border-top: 1px solid #ccc;
+        padding-top: 5px;
+      }
+
+      /* margin */
+      @page {
+        size: A4;
+        margin: 1cm 0.7cm 1.5cm 0.7cm; /* haut, droite, bas, gauche */
+
+        @bottom-center {
+          content:
+            "Merci pour votre confiance - {{ company.name }} | {{ company.email }} | {{ company.phone }} | "
+            "Page " counter(page) " / " counter(pages);
+          font-size: 10px;
+          color: black;
+          position: relative;
+          bottom: 0.3cm; /* remonte le texte dans la marge */
+        }
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <!-- end style -->
+  </head>
+
+
+  <body>
+    <div class="header">
+      <div class="company-info">
+        <h2>{{ company.name }}</h2>
+        <p>{{ company.address }}</p>
+        <p><strong>Tél :</strong> {{ company.phone }}</p>
+        <p><strong>Email :</strong> {{ company.email }}</p>
+        <p><strong>SIRET :</strong> {{ company.siret }} NAF {{ company.naf }}</p>
+      </div>
+
+      <div class="invoice-info">
+        <div>
+          <h2>{{ quote.customer.name }}</h2>
+          <p>{{ quote.customer.address }}</p>
+          <p><strong>Tél :</strong> {{ quote.customer.phone|default:"" }}</p>
+          <p><strong>Email :</strong> {{ quote.customer.email|default:"" }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta-info">
+        <div class="fnumber-date">
+          <strong>{{ quote.number }}</strong><br />
+          <strong>Date de création :</strong> {{ quote.issue_date }} <br /><br />
+          <strong>Valable :</strong> {{ quote.validity }} jours
+        </div>
+    </div>
+
+
+    <table class="table table-striped-columns caption-top">
+      <caption style="color: black; font-size: 16px;">Chantier : {{ quote.chantier }}</caption>
+      <thead style="background-color:  #af601a; color: white;">
+        <tr>
+          <th>Description</th>
+          <th style="color: white;">Unité de mesure</th>
+          <th>Quantité</th>
+          <th style="color: white;">Prix unitaire</th>
+          <th>Prix total</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for item in quote.items.all %}
+        <tr>
+          <td style="text-align: left;">{{ item.description }}</td>
+          <td>{{ item.unit }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.unit_price|floatformat:2 }} €</td>
+          <td>{{ item.total_price|floatformat:2 }} €</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="totals">
+      <div class="left-info">
+        <!-- <p><strong>Responsabilité civile & Décennale</strong></p>
+        <p>M-TPE 2025 / POLICE N°PRW2403108</p>
+        <p>MIC INSURANCE</p> -->
+      </div>
+
+      <div class="right-totals">
+        <p><strong>Total HT :</strong> {{ quote.total_ht|floatformat:2 }} €</p>
+        <p><strong>TVA {{ quote.tva_percentage }}% :</strong> {{ quote.tva_amount|floatformat:2 }} €</p>
+        <p class="total-ttc"><strong>Montant TTC :</strong> {{ quote.total_ttc_tva|floatformat:2 }} €</p>
+      </div>
+    </div>
+
+  </body>
+
+</html>

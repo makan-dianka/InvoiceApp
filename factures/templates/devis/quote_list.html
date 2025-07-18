@@ -1,0 +1,63 @@
+{% extends "layout/base.html" %}
+
+{% load static %}
+
+
+{%  block head %}
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center main-top">
+            <div class="col-md-8">
+                <button type="button" class="btn btn-success mb-5" onclick=redirectTo()>Créer un devis</button>
+                <table class="table caption-top border-dark">
+                    <caption>Liste des devis</caption>
+                    <thead class="tbl-bg text-center">
+                        <tr>
+                            <th scope="col">Numéro</th>
+                            <th scope="col">Client</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Chantier</th>
+                            <th scope="col">TTC</th>
+                            <th scope="col">État</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for quote in quotes %}
+                            <tr class="text-center">
+                                <td>
+                                    <a href="{% url 'factures:quote_detail' quote.id %}">
+                                        {{ quote.number }}
+                                    </a>
+                                </td>
+                                <td>{{ quote.customer.name }}</td>
+                                <td>{{ quote.issue_date }}</td>
+                                <td>{{ quote.chantier }}</td>
+                                <td>{{ quote.total_ttc_tva }}€</td>
+                                {% if quote.status == 'pending' %}
+                                    <td class="text-warning">En attente</td>
+                                {% elif quote.status == 'accepted' %}
+                                    <td class="text-success">Accepté</td>
+                                {% elif quote.status == 'refused' %}
+                                    <td class="text-danger">refusé</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block custom_javascrpt %}
+    <script>
+        function redirectTo() {
+            window.location.href="{% url 'factures:quote_create' %}";
+        }
+    </script>
+{% endblock %}

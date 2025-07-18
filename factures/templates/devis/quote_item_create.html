@@ -1,0 +1,26 @@
+{% extends "layout/base.html" %}
+
+{% load static %}
+
+
+{%  block head %}
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center main-top">
+            <div class="col-md-8">
+                <h4>Ajouter un article au <span class="text-success">{{ quote.number }}</span></h4>
+                <hr />
+                <form method="post">
+                  {% csrf_token %}
+                  {{ form.as_p }}
+                  <button type="submit" class="btn btn-success">Ajouter l'article</button>
+                </form>
+                <br><br>
+                <p><a href="{% url 'factures:quote_detail' quote.id %}">← Retour au devis</a></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

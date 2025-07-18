@@ -1,0 +1,62 @@
+{% extends "layout/base.html" %}
+
+{% load static %}
+
+
+{%  block head %}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="row justify-content-center main-top">
+            <div class="col-md-8">
+                <button type="button" class="btn btn-success mb-5" onclick=redirectTo()>Ajouter un produit</button>
+                <table class="table caption-top border-dark">
+                    <caption>{{ quote.number  }} 
+                      <a href="{% url 'factures:edit_quote' quote.id %}"> ✏️ Éditer</a>
+                    </caption>
+                    <thead class="tbl-bg text-center">
+                        <tr>
+                            <th scope="col">Description</th>
+                            <th scope="col">Unité</th>
+                            <th scope="col">Qté</th>
+                            <th scope="col">P.U</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for quote_item in quote_items %}
+                            <tr class="text-center">
+                                <td>
+                                    <a href="{% url 'factures:quote_edit_item' quote_item.id %}">
+                                        {{ quote_item.description }}
+                                    </a>
+                                </td>
+                                <td>{{ quote_item.unit }}</td>
+                                <td>{{ quote_item.quantity }}</td>
+                                <td>{{ quote_item.unit_price }}€</td>
+                                
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <br><br>
+                {% if  quote_items %}
+                  <a href="{% url 'factures:quote_pdf' quote.id %}" target="_blank">📄 Télécharger le PDF</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block custom_javascrpt %}
+    <script>
+        function redirectTo() {
+            window.location.href="{% url 'factures:add_quote_item' quote.id %}";
+        }
+    </script>
+{% endblock %}
