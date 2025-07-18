@@ -21,6 +21,8 @@
                             <th scope="col">Date</th>
                             <th scope="col">Chantier</th>
                             <th scope="col">TTC</th>
+                            <th scope="col">Status</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -35,7 +37,11 @@
                                 <td>{{ invoice.issue_date }}</td>
                                 <td>{{ invoice.chantier }}</td>
                                 <td>{{ invoice.total_ttc_tva }}€</td>
-                                
+                                {% if invoice.is_paid == True %}
+                                    <td class="text-success">payé</td>
+                                {% elif invoice.is_paid == False %}
+                                    <td class="text-danger">impayé</td>
+                                {% endif %}
                             </tr>
                         {% endfor %}
                     </tbody>
