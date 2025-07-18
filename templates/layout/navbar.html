@@ -8,6 +8,9 @@
         <ul class="navbar-nav">
           {% if request.user.is_authenticated %}
             <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'factures:quote_list' %}">Mes Devis</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link text-white" href="{% url 'factures:invoices' %}">Mes Factures</a>
             </li>
             <li class="nav-item">
