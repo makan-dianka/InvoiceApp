@@ -1,60 +1,99 @@
 body {
-    font-family: Arial, sans-serif;
-    font-size: 12px;
-    margin: 20px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  margin: 20px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+.company-info {
+  width: 45%;
+}
+.invoice-info {
+  width: 300px;
+  border: 1px dashed black;
+  padding: 8px;
+  background-color: whitesmoke;
+}
+
+.invoice-info p, .company-info p {
+  margin: 3px 0;
+}
+
+.meta-info {
+  float: right;
+  padding: 5px;
+  width: 300px;
+  margin-bottom: 25px;
+}
+
+.totals {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.left-info {
+  width: 50%;
+  font-size: 11px;
+}
+
+
+.right-totals {
+  width: 40%;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+
+.right-totals p {
+  margin: 4px 0;
+  text-align: right;
+}
+
+.total-ttc {
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: 10px;
+  border-top: 1px solid black;
+  padding-top: 8px;
+  background-color: whitesmoke;
+  padding: 10px;
+}
+
+
+/* Footer */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2cm;
+  text-align: center;
+  font-size: 11px;
+  border-top: 1px solid #ccc;
+  padding-top: 5px;
+}
+
+/* margin */
+@page {
+  size: A4;
+  margin: 1cm 0.7cm 1.5cm 0.7cm; /* haut, droite, bas, gauche */
+
+  @bottom-center {
+    content:
+      "Merci pour votre confiance - {{ company.name }} | {{ company.email }} | {{ company.phone }} - "
+      "Page " counter(page) " / " counter(pages);
+    font-size: 10px;
+    color: black;
+    position: relative;
+    bottom: 0.3cm; /* remonte le texte dans la marge */
   }
-  .header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 30px;
-  }
-  .company-info {
-    width: 45%;
-  }
-  .invoice-info {
-    width: 45%;
-    border: 1px solid black;
-    padding: 10px;
-  }
-  .invoice-info p, .company-info p {
-    margin: 3px 0;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-  }
-  th {
-    background-color: gray;
-  }
-  th, td {
-    border: 1px solid black;
-    padding: 8px;
-    text-align: center;
-  }
-  .totals {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-  }
-  .left-info {
-    width: 50%;
-    font-size: 11px;
-  }
-  .right-totals {
-    width: 40%;
-    border: 1px solid black;
-    padding: 10px;
-  }
-  .right-totals p {
-    margin: 4px 0;
-    text-align: right;
-  }
-  .total-ttc {
-    font-weight: bold;
-    font-size: 14px;
-    margin-top: 10px;
-    border-top: 1px solid black;
-    padding-top: 8px;
-  }
-  
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
