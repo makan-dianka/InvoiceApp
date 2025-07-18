@@ -33,4 +33,5 @@ urlpatterns = [
     path('quote/item/<int:item_id>/edit/', quote.quote_edit_item, name='quote_edit_item'),
 
     path('quote/<int:quote_id>/pdf/', quote.generate_quote_pdf, name='quote_pdf'),
+    path('quote-to-invoice/<int:quote_id>/', quote.quote_to_invoice, name='quote_to_invoice'),
 ]

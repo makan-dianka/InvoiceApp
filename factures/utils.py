@@ -1,6 +1,8 @@
 from django.db import transaction
 from factures.models.invoice import Invoice
+from factures.models.invoice_item import InvoiceItem
 from factures.models.quote import Quote
+from django.utils import timezone
 
 def generate_invoice_number(user):
     """
@@ -48,3 +50,28 @@ def generate_quote_number(user):
             last_num = 0
 
         return f"DEVIS-{last_num+1:04d}"
+
+
+
+
+
+
+def convert_quote_to_invoice(quote: Quote) -> Invoice:
+    invoice = Invoice.objects.create(
+        user=quote.user,
+        number=generate_invoice_number(quote.user),
+        customer=quote.customer,
+        issue_date=timezone.now(),
+        chantier=quote.chantier,
+        quote=quote
+    )
+
+    for item in quote.items.all():
+        InvoiceItem.objects.create(
+            invoice=invoice,
+            description=item.description,
+            unit=item.unit,
+            quantity=item.quantity,
+            unit_price=item.unit_price,
+        )
+    return invoice

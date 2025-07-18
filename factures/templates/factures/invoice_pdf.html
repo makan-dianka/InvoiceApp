@@ -139,7 +139,7 @@
 
     <div class="meta-info">
         <div class="fnumber-date">
-          <strong>{{ invoice.number }}</strong>
+          <span><strong>{{ invoice.number }}</strong> {% if invoice.quote %} - Issue du devis: {{ invoice.quote }} {% endif %}</span>
           <p><strong>Date d'émission :</strong> {{ invoice.issue_date }}</p>
         </div>
     </div>

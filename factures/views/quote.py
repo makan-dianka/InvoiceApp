@@ -133,6 +133,16 @@ def quote_edit_item(request, item_id):
 
 
 
+def quote_to_invoice(request, quote_id):
+    quote = get_object_or_404(Quote, id=quote_id, user=request.user)
+    invoice = utils.convert_quote_to_invoice(quote)
+    quote.status = 'accepted'
+    quote.save()
+    return redirect('factures:invoice_detail', invoice_id=invoice.id)
+
+
+
+
 
 # ----> PDF Generation <------
 #----------------------------------

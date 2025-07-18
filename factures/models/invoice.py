@@ -1,5 +1,6 @@
 from django.db import models
 from .customer import Customer
+from .quote import Quote
 from django.conf import settings
 
 
@@ -10,6 +11,7 @@ class Invoice(models.Model):
     issue_date = models.DateField()
     chantier = models.CharField(max_length=250, null=True) # chantier par exemple
     is_paid = models.BooleanField(default=False)
+    quote = models.ForeignKey(Quote, null=True, blank=True, on_delete=models.CASCADE, related_name='quotes')
     rg_percentage = models.DecimalField(max_digits=5, decimal_places=2, default=20)  # Ex: 5.00
     tva_percentage = models.DecimalField(max_digits=5, decimal_places=2, default=20)  # Ex: 5.00
 

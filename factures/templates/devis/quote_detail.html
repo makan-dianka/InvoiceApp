@@ -15,7 +15,12 @@
                 <button type="button" class="btn btn-success mb-5" onclick=redirectTo()>Ajouter un produit</button>
                 <table class="table caption-top border-dark">
                     <caption>{{ quote.number  }} 
-                      <a href="{% url 'factures:edit_quote' quote.id %}"> ✏️ Éditer</a>
+                        <a href="{% url 'factures:edit_quote' quote.id %}"> ✏️ Éditer</a>
+                        {% if quote.status != 'accepted' %}
+                            <a href="{% url 'factures:quote_to_invoice' quote.id %}" style="float: right;" class="btn btn-primary">Transformer en facture</a>
+                        {% else %}
+                            <p style="float: right;" class="text-success">Devis déjà accepté</p>
+                        {% endif %}
                     </caption>
                     <thead class="tbl-bg text-center">
                         <tr>
