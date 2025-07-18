@@ -1,5 +1,7 @@
 from django.contrib import admin
 from .models import Invoice, InvoiceItem, Customer
+from factures.models.quote import Quote
+from factures.models.quote_item import QuoteItem
 from accounts.models import CustomUser
 
 
@@ -26,3 +28,14 @@ class InvoiceAdmin(admin.ModelAdmin):
 class CustomUserAdmin(admin.ModelAdmin):
     list_display = ('email', 'is_active', 'is_staff')
     search_fields = ('email',)
+
+
+@admin.register(Quote)
+class QuoteAdmin(admin.ModelAdmin):
+    list_display = ('number', 'user', 'status', 'issue_date')
+    search_fields = ('customer',)
+
+
+@admin.register(QuoteItem)
+class QuoteItemAdmin(admin.ModelAdmin):
+    list_display = ('description', 'quantity', 'unit_price', 'unit')
