@@ -22,7 +22,7 @@
                 <section class="welcome dashboard">
                     <p>
                         Bienvenue sur <strong>FacturaPro</strong>, le logiciel en ligne conçu spécialement pour les artisans et professionnels du bâtiment. 
-                        Que vous soyez maçon, électricien, plombier, couvreur, étancheur ou conducteur de travaux, notre outil vous accompagne dans la gestion de vos devis et factures, rapidement et sans prise de tête.
+                        Que vous soyez maçon, électricien, plombier, couvreur, étancheur ou conducteur de travaux, notre outil vous accompagne dans la gestion de vos devis et factures, rapidement et sans prise de tête. <a href="{% url 'accounts:register' %}">Créer mon compte</a>
                     </p>
                 </section>
 
@@ -31,17 +31,17 @@
                     <ul>
                         <li>Créer des devis et Factures BTP détaillés en quelques minutes.</li>
                         <li>Éditer des factures conformes et personnalisées.</li>
-                        <li>Transformer vos devis en factures en un clic.</li>
+                        <li>Transformer vos devis en factures en un clic. <a href="{% url 'accounts:register' %}">Créer mon compte</a></li>
                     </ul>
                 </section>
 
-                
                 <section class="free dashboard">
-                    <h3>Simple, rapide, efficace</h3>
+                    <h3>Simple, rapide et efficace</h3>
                     <ul>
                         <li>Pas besoin de formation, tout est intuitif.</li>
                         <li>Compatible sur ordinateur, tablette et smartphone.</li>
                         <li>Vos données sont sécurisées et sauvegardées.</li>
+                        <a href="{% url 'accounts:register' %}">Créer votre compte gratuitement</a>
                     </ul>
                 </section>
 
@@ -61,7 +61,7 @@
                         <p>Vos documents sont réglementaires et sécurisés.</p>
                     </div>
     
-                    <button type="button" class="btn btn-success btn-lg" onclick=redirectTo()>Créer mon compte</button>
+                    <button type="button" class="btn btn-success btn-lg big-btn" onclick=redirectTo()>Créer mon compte gratuitement</button>
                 </section>
                 <br /> <br /> <br /> <br /> <br /> <br />
             </div>
