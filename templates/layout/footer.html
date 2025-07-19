@@ -9,7 +9,7 @@
 
 <footer style="color: black; text-align: center; padding: 8px" class="footer">
     <div>
-        <a href="#">Mentions légales</a> | <a href="#">CGV</a> | <a href="#">Contact</a> <br />
+        <a href="{% url 'accounts:legal' %}">Mentions légales</a> | <a href="{% url 'accounts:legal' %}#cgv">CGV</a> <br />
         &copy; {% now 'Y' %} <strong>FacturaPro.</strong> Merci pour votre confiance.
     </div>
 </footer>
