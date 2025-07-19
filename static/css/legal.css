@@ -1,0 +1,10 @@
+body {
+    background-color: black;
+    color: white;
+    font-family:'Courier New', Courier, monospace;
+}
+
+.mention-legal, .cgv, .confiance {
+    margin-top: 200px;
+}
+

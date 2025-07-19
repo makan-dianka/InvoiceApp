@@ -15,3 +15,7 @@ def creation(request):
     form = CompanyForm()
     context = {'form' : form}
     return render(request, 'accounts/company_creation.html', context)
+
+
+def legal(request):
+    return render(request, 'accounts/legal.html')
