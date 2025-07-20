@@ -9,6 +9,14 @@
     padding: 15px;
 }
 
+.main-top .devis{
+    background-color: #af601a;
+    color: white;
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 25px;
+}
+
 .main-top a {
     text-decoration: none;
 }
