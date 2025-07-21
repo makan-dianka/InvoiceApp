@@ -8,8 +8,14 @@ class UserAccessMiddleware:
     except for public, payment and authentication pages.
     """
 
-    EXEMPT_URL_NAMES = [
-        'accounts:login', 'accounts:logout', 'accounts:register', 'accounts:legal', 'factures:home', 'admin:index'
+    EXEMPT_PATHS = [
+        reverse('accounts:login'),
+        reverse('accounts:logout'),
+        reverse('accounts:register'),
+        reverse('accounts:legal'),
+        reverse('factures:home'),
+        reverse('payment:index'),
+        reverse('payment:payment_challenge'),
     ]
 
     def __init__(self, get_response):
@@ -18,6 +24,9 @@ class UserAccessMiddleware:
     def __call__(self, request):
         if request.user.is_authenticated:
             if hasattr(request.user, 'useraccess') and not request.user.useraccess.is_active():
-                if not any(request.path.startswith(reverse(name)) for name in self.EXEMPT_URL_NAMES):
-                    return redirect('payment')
+                if request.path.startswith('/admin/'):
+                    return self.get_response(request)
+                if request.path not in self.EXEMPT_PATHS:
+                    # print(f"Redirection: {request.path} n'est pas exempté")
+                    return redirect('payment:index')
         return self.get_response(request)
