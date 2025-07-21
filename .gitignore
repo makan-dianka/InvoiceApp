@@ -15,3 +15,6 @@ factures/__pycache__
 factures/migrations/__pycache__
 factures/models/__pycache__
 factures/views/__pycache__
+
+payment/__pycache__
+payment/migrations/__pycache__
