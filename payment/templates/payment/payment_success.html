@@ -1,0 +1,37 @@
+{% extends "layout/base.html" %}
+
+{% load static %}
+
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/reservation.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 mt-5">
+                <div class="text-center mt-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="currentColor" style="color: green;">
+                        <path d="M378-246 154-470l43-43 181 181 384-384 43 43-427 427Z"/>
+                    </svg>
+                    <h4 class="text-success">Paiement confirmé</h4>
+                    <h5 class="text-success"></h5>
+                    <p>Merci pour votre paiement. Votre accès est prolongé de 4 semaines</p>
+
+                    <button type="button" class="btn btn-success btn-lg big-btn" onclick=redirectTo()>Retour au dashbord</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block custom_javascrpt %}
+    <script>
+        function redirectTo() {
+            window.location.href="{% url 'factures:dashboard' %}";
+        }
+    </script>
+{% endblock %}
