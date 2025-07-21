@@ -1,0 +1,35 @@
+{% extends "layout/base.html" %}
+
+{% load static %}
+
+
+{%  block head %}
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center main-top">
+            <div class="col-md-8">
+                <h4>Votre période d'accès est expirée</h4> <br /><br />
+                <p>
+                    Bonjour {{ request.user }}, <br /><br />
+                    Votre période d'essai ou votre dernier paiement est arrivé à son terme.
+                    Pour continuer à utiliser <strong>OKFacture</strong> et générer vos devis et factures en toute simplicité, merci de renouveler votre accès en réglant le montant <strong style="font-style: italic;">19,99 € pour 4 semaines d'accès</strong>.
+                </p>
+                <p>Une fois le paiement effectué, votre accès sera immédiatement rétabli.</p>
+
+                <button type="button" class="btn btn-success btn-lg big-btn" onclick=redirectTo()>Renouveler maintenant</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block custom_javascrpt %}
+    <script>
+        function redirectTo() {
+            window.location.href="{% url 'payment:payment_challenge' %}";
+        }
+    </script>
+{% endblock %}

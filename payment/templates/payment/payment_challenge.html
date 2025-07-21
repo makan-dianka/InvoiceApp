@@ -1,0 +1,83 @@
+{% extends "layout/base.html" %}
+
+{% load static %}
+
+
+{% block head %}
+    <script src="{% static 'js/payment.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/payment.css' %}">
+    <style>
+        #overlay-spinner {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.8);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        }
+        .d-none {
+            display: none !important;
+        }
+    </style>
+{% endblock %}
+
+
+<title>{% block title %} régler votre situation {% endblock %}</title>
+
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center reservation" style="margin-top: 150px;">
+
+            <div class="col-md-4">
+                    <form id="payment-form" method="POST" action=""> {% csrf_token %}
+
+                    <p>Une fois le paiement effectué, votre accès sera immédiatement rétabli.</p> 
+
+                    <input type="hidden" id="input">
+
+                    <!-- Info sur la carte  -->
+
+                    <hr class="hr-text" data-content="Paiement">
+
+                    {% if card_error %} <p class="text-danger">Le paiement n'a pas pu être abouti: {{ card_error }}</p> {% endif %}
+
+                    <label>Carte</label>
+                    <div id="card-element" class="form-control">
+                    <!-- Elements will create input elements here -->
+                    </div>
+                
+                    <!-- We'll put the error messages in this element -->
+                    <div id="card-errors" role="alert" class="text-danger"></div> <br /><br />
+
+
+                    <input type="checkbox" id="cgu-agree" name="cgu-agree" required/>
+                    <label for="cgu-agree">J'accepte les <a href="{% url 'accounts:legal' %}#cgv"><span class="condition">CGV</span></a> </label> <br /><br />
+                
+                    <button type="submit" class="btn btn-payer" id="btn-payer">
+                        <span class="spinner-border spinner-border-sm d-none" id="btn-spinner" role="status" aria-hidden="true"></span>
+                        Je paie 19,99 €
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="overlay-spinner" class="d-none">
+      <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Paiement en cours...</span>
+      </div>
+    </div>
+{% endblock %}
+
+
+
+{% block custom_javascrpt %}
+    <script id="stripe-config" data-stripe-key="{{ stripe_public_key }}"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+{% endblock %}

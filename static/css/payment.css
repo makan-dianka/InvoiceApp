@@ -1,0 +1,108 @@
+.paiement-body{
+    background-color: whitesmoke;
+}
+
+.total-payment {
+    color: #412018;
+}
+
+.btn-payer{
+    margin-top: 8px;
+    background-color: green;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+
+.btn-payer:hover {
+  background-color: green;
+  color: white;
+}
+
+.btn-annuler{
+    margin-top: 8px;
+    float: right;
+  }
+
+  .form-h{
+    font-family: 'Courier New', Courier, monospace;
+    font-style: italic;
+  }
+
+::placeholder {
+    color: #aab7c4 !important;
+    opacity: 1 !important;
+    font-size: 14px !important;
+    font-family: helvetica sans-serif;
+}
+
+#payment-form{
+    border: 5px green solid;
+    border-radius: 25px;
+    padding: 35px;
+}
+
+#payment-form p{
+    font-style: italic;
+    color: #412018;
+}
+
+.condition{
+  color: #412018;
+}
+
+
+.hr-text {
+  line-height: 1em;
+  position: relative;
+  outline: 0;
+  border: 0;
+  color: black;
+  text-align: center;
+  height: 1.5em;
+  opacity: .9;
+  &:before {
+    content: '';
+    background: linear-gradient(to right, transparent, #818078, transparent);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+  }
+  &:after {
+    content: attr(data-content);
+    position: relative;
+    display: inline-block;
+    color: black;
+
+    padding: 0 .5em;
+    line-height: 1.5em;
+    color: #818078;
+    background-color: #fcfcfa;
+  }
+}
+
+/* css stripe  */
+.StripeElement{
+    box-sizing: border-box;
+    height: 40px;
+    padding: 10px 12px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    --web-kit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+  }
+  
+.StripeElement--focus{
+    box-shadow: 0 1px 3px 0 #cfd7df;
+  }
+  
+.StripeElement--invalid{
+    border-color: #fa755a;
+  }
+  
+.StripeElement--webkit-autofill{
+    background-color: #fefde5 !important;
+  }
