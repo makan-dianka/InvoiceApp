@@ -8,6 +8,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 dotenv.load_dotenv(BASE_DIR / '.env')
 
+ENV = os.getenv('ENV', 'development')
+
 SECRET_KEY = os.environ['SECRET_KEY']
 
 DEBUG = bool(int(os.getenv('DEBUG', 0)))
@@ -31,7 +33,8 @@ INSTALLED_APPS = [
     'crispy_forms',
 
     'accounts.apps.AccountsConfig',
-    'factures',
+    'factures.apps.FacturesConfig',
+    'payment.apps.PaymentConfig',
 ]
 
 MIDDLEWARE = [
@@ -133,3 +136,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 AUTHENTICATION_BACKENDS = ['accounts.backends.EmailBackend']
+
+
+if ENV == 'prod':
+    STRIPE_PRIVATE_KEY = os.getenv('STRIPE_PRIVATE_LIVE_KEY')
+    STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_LIVE_KEY')
+else:
+    STRIPE_PRIVATE_KEY = os.getenv('STRIPE_PRIVATE_TEST_KEY')
+    STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_TEST_KEY')
+
