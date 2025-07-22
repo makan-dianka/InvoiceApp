@@ -145,3 +145,14 @@ else:
     STRIPE_PRIVATE_KEY = os.getenv('STRIPE_PRIVATE_TEST_KEY')
     STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_TEST_KEY')
 
+
+# mail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'ssl0.ovh.net'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
+EMAIL_CC = os.getenv('EMAIL_CC')
+EMAIL_RECIPIENT = os.getenv('EMAIL_RECIPIENT')
