@@ -4,7 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm #UserCreationForm
 from  accounts.forms.userform import CreateUserForm
 from django.contrib import messages
 from django.conf import settings
-from utils.payment import sendmail
+from utils.payment import sendmail, log
 
 
 
@@ -18,7 +18,7 @@ def register_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-
+            log('debug_log', 'info', f'new user is created : {request.user}')
             # sendmail
             maildata = {
             'usermail': settings.EMAIL_RECIPIENT,

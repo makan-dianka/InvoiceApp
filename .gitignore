@@ -20,3 +20,5 @@ payment/__pycache__
 payment/migrations/__pycache__
 
 utils/__pycache__
+
+logs/*.log

@@ -5,8 +5,34 @@ from django.conf import settings
 from datetime import timedelta
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
+import logging
 
-logger = logging.getLogger(__name__)
+
+def log(logger, log_status, message):
+    """function to log message for debugging
+
+    Args:
+        logger (str): logger
+        log_status (str): log status (debug, warning or critical)
+        message (str): message to log
+    """
+
+    l = logging.getLogger(logger)
+    if log_status == 'info':
+        l.info(message)
+    if log_status == 'debug':
+        l.debug(message)
+    if log_status == 'warning':
+        l.warning(message)
+    if log_status == 'error':
+        l.error(message)
+    if log_status == 'exception':
+        l.exception(message)
+    if log_status == 'critical':
+        l.critical(message)
+
+
+
 
 def charge_user(user, amount, stripe_token):
     """
@@ -50,17 +76,17 @@ def charge_user(user, amount, stripe_token):
             return {'success': True, 'charge_id': charge.id, 'customer_id': customer.id}
         else:
             print("information reçu après l'echec du paiement: ", charge)
-            logger.warning(f"Stripe charge not succeeded: {charge}")
+            log('debug_log', 'debug', f"Stripe charge not succeeded: {charge}")
             return {'success': False, 'error': "Le paiement n'a pas pu être confirmé."}
 
     except stripe.error.CardError as e:
-        logger.error(f"CardError: {e}")
+        log('debug_log', 'error', f"CardError: {e}")
         return {'success': False, 'error': e.user_message}
     except stripe.error.StripeError as e:
-        logger.error(f"StripeError: {e}")
+        log('debug_log', 'error', f"StripeError: {e}")
         return {'success': False, 'error': 'Erreur avec le service de paiement. Veuillez réessayer.'}
     except Exception as e:
-        logger.exception(f"Unexpected error: {e}")
+        log('debug_log', 'exception', f"Unexpected error: {e}")
         return {'success': False, 'error': 'Erreur interne. Veuillez réessayer plus tard.'}
 
 
@@ -107,7 +133,6 @@ def sendmail(request, **kwargs):
     email.fail_silently = False
     try:
         email.send()
-        return "OK mail sent success"
+        log('debug_log', 'info', "OK mail sent success")
     except Exception as e:
-        print("envoie email echoue:", e)
-        return "Fail to send mail"
+        log('debug_log', 'exception', f"Fail to send mail: {e}")

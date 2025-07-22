@@ -156,3 +156,50 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 EMAIL_CC = os.getenv('EMAIL_CC')
 EMAIL_RECIPIENT = os.getenv('EMAIL_RECIPIENT')
+
+
+
+if DEBUG is False:
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+
+        'formatters': {
+            'verbose': {
+                'format': '%(levelname)s %(asctime)s %(module)s %(lineno)s %(message)s',
+            },
+
+            'simple': {
+                'format': '%(levelname)s %(message)s',
+            },
+        },
+
+        'filters': {
+            'require_debug_false': {
+                '()': 'django.utils.log.RequireDebugFalse',
+            },
+        },
+
+        'handlers': {
+
+            'debugger': {
+                'filename' :  os.path.join(BASE_DIR, 'logs/debugger.log'),
+                'filters': ['require_debug_false'],
+                'class': 'logging.handlers.RotatingFileHandler',
+                'formatter': 'verbose',
+                'backupCount' : 5,
+                'maxBytes' : 1024*1024*50,
+                'encoding' : 'utf8',
+                'level': 'DEBUG',
+            },
+
+        },
+
+        'loggers': {
+
+            'debug_log': {
+                'handlers': ['debugger'],
+                'level': 'DEBUG',
+            },
+        }
+    }
