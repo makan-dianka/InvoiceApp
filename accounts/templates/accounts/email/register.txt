@@ -1,0 +1,10 @@
+
+Bonjour,
+
+Un nouveau utilisateur vient de s'inscrire sur le site OKFacture.com
+
+Prénom : {{ username }}
+
+email : {{ email }}
+
+Merci !
