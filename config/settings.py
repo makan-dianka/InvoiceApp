@@ -206,7 +206,7 @@ if DEBUG is False:
             'django': {
                 'handlers':['file'],
                 'propagate': True,
-                'level':'DEBUG',
+                'level':'ERROR',
             },
             'debug_log': {
                 'handlers': ['debugger'],
