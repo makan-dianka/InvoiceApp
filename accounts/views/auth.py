@@ -20,13 +20,13 @@ def register_view(request):
             login(request, user)
             log('debug_log', 'info', f'new user is created : {request.user}')
             # sendmail
-            maildata = {
-            'usermail': settings.EMAIL_RECIPIENT,
-            'mailsubject' : f"[OkFacture] Un nouveau utilisateur vient de s'inscrire",
-            'html_file': 'register.html',
-            'txt_file': 'register.txt',
-            }
-            sendmail(request, **maildata)
+            # maildata = {
+            # 'usermail': settings.EMAIL_RECIPIENT,
+            # 'mailsubject' : f"[OkFacture] Un nouveau utilisateur vient de s'inscrire",
+            # 'html_file': 'register.html',
+            # 'txt_file': 'register.txt',
+            # }
+            # sendmail(request, **maildata)
 
             return redirect('accounts:company_creation')  # à adapter plus tard
     else:
