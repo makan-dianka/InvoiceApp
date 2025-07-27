@@ -185,7 +185,7 @@ if DEBUG is False:
             'file': {
                 'level': 'ERROR',
                 'class': 'logging.FileHandler',
-                'filename' :  os.path.join(BASE_DIR, 'logs/django_debugger.log'),
+                'filename' : os.path.join(BASE_DIR, 'logs/django_debugger.log'),
                 'formatter': 'verbose'
             },
 
@@ -206,7 +206,12 @@ if DEBUG is False:
             'django': {
                 'handlers':['file'],
                 'propagate': True,
-                'level':'ERROR',
+                'level':'DEBUG',
+            },
+            'django.request': {
+                'handlers': ['file'],
+                'level': 'DEBUG',
+                'propagate': False,
             },
             'debug_log': {
                 'handlers': ['debugger'],
