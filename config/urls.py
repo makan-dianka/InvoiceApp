@@ -12,7 +12,7 @@ handler500 = errors.handler500
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('auser/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('payment/', include('payment.urls')),
     path('', include('factures.urls')),
