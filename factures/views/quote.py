@@ -151,7 +151,12 @@ def generate_quote_pdf(request, quote_id):
     quote = Quote.objects.get(id=quote_id)
     if quote.user != request.user:
         raise Http404("Ce Devis n'existe pas.")
-    user_company = Company.objects.get(owner=request.user)
+
+    try:
+        user_company = Company.objects.get(owner=request.user)
+    except Company.DoesNotExist:
+        return redirect("accounts:company_creation")
+
     template = get_template('devis/quote_pdf.html')
     html_content = template.render({'quote': quote, 'company': user_company})
 
