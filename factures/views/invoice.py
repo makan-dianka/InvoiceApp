@@ -292,7 +292,12 @@ def generate_invoice_pdf(request, invoice_id):
     invoice = Invoice.objects.get(id=invoice_id)
     if invoice.user != request.user:
         raise Http404("Cette facture n'existe pas.")
-    user_company = Company.objects.get(owner=request.user)
+
+    try:
+        user_company = Company.objects.get(owner=request.user)
+    except Company.DoesNotExist:
+        return redirect("accounts:company_creation")
+
     template = get_template('factures/invoice_pdf.html')
     html_content = template.render({'invoice': invoice, 'company': user_company})
 
