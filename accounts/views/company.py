@@ -11,7 +11,7 @@ def creation(request):
             instance = form.save(commit=False)
             instance.owner = request.user
             instance.save()
-            return redirect('factures:dashboard')
+            return redirect('factures:invoices')
     form = CompanyForm()
     context = {'form' : form}
     return render(request, 'accounts/company_creation.html', context)
